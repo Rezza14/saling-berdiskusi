@@ -1,0 +1,41 @@
+<?php
+
+namespace {{ namespace }};
+
+class {{ class }}
+{
+    /**
+     * List resource
+     */
+    public function index()
+    {
+    }
+
+    /**
+     * Create data
+     */
+    public function store($data)
+    {
+    }
+
+    /**
+     * Show resource detail
+     */
+    public function show($data)
+    {
+    }
+
+    /**
+     * Update resource data
+     */
+    public function update($data, $model)
+    {
+    }
+
+    /**
+     * Delete resource
+     */
+    public function delete($model)
+    {
+    }
+}
