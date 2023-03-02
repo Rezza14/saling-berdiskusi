@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Auth'], function () {
+    Route::group(['middleware' => ['guest']], function () {
+        Route::controller('LoginController')
+            ->prefix('login')
+            ->group(function () {
+                Route::get('/', 'showLoginForm')->name('login');
+                Route::post('/', 'login')->name('login.post');
+            });
+    });
 });
+
+Route::get('/', 'DashboardController')->name('index');
+
