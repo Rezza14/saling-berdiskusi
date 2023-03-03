@@ -39,7 +39,6 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-Route::group(['middleware' => ['auth', 'role:'.implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
+Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
     Route::get('/', 'DashboardController')->name('index');
 });
-

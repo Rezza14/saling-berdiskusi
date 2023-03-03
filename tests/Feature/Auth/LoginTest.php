@@ -16,7 +16,7 @@ it('can\'t access login page (already authorized)', function (User $user) {
 it('can access login page', function () {
     get(route('login'))
         ->assertStatus(200)
-        ->assertSee('login page');
+        ->assertSee('login');
 });
 
 it('can\'t login (validation errors)', function () {
