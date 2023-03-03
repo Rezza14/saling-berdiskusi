@@ -36,10 +36,10 @@ class LoginRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        if (! $this->wantsJson()) {
+        if (!$this->wantsJson()) {
             $this->redirect = route('login');
-            $errors = implode('<br>', $validator->errors()->all());
-            alert($errors, 'error');
+            $errors = implode(', ', $validator->errors()->all());
+            sweetalert($errors, 'error');
         }
         parent::failedValidation($validator);
     }

@@ -32,7 +32,7 @@ class LoginController extends Controller
         try {
             $loginResponse = $loginService->login($request);
             if (!$loginResponse->success) {
-                alert($loginResponse->message, 'error');
+                sweetalert($loginResponse->message, 'error');
 
                 return redirect()
                     ->back(302, [], route('login'))
