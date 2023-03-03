@@ -35,8 +35,8 @@ class ForgotPasswordController extends Controller
     {
         try {
             $forgotPasswordResponse = $forgotPasswordService->sendResetLinkEmail($request);
-            if (! $forgotPasswordResponse->success) {
-                sweetAlert($forgotPasswordResponse->data, 'error');
+            if (!$forgotPasswordResponse->success) {
+                sweetalert($forgotPasswordResponse->data, 'error');
 
                 return back(302, [], route('forgot-password'))
                     ->withErrors($forgotPasswordResponse->message);
@@ -48,7 +48,7 @@ class ForgotPasswordController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetAlert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return redirect()->back(302, [], route('forgot-password'))->withInput();
         }
