@@ -41,5 +41,15 @@ Route::group(['namespace' => 'Auth'], function () {
 
 Route::group(['middleware' => ['auth', 'role:'.implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
     Route::get('/', 'DashboardController')->name('index');
+
+    Route::controller('ProfileController')
+    ->as('profile.')
+    ->prefix('profile')
+    ->group(function () {
+        Route::put('update/avatar', 'updateAvatar')->name('updateAvatar');
+        Route::put('update/password', 'updatePassword')->name('updatePassword');
+    });
+
+    Route::resource('profile', 'ProfileController');
 });
 
