@@ -16,7 +16,7 @@ it('can\'t access forgot password page (already authorized)', function (User $us
 it('can access forgot password page', function () {
     get(route('forgot-password'))
         ->assertStatus(200)
-        ->assertSeeText('forgot page');
+        ->assertSeeText('Forgot Password');
 });
 
 it('can\'t send forgot password reset request (validation error)', function () {
