@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RoleEnum;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,17 @@ Route::group(['namespace' => 'Auth'], function () {
                 Route::get('/', 'showLinkRequestForm')->name('forgot-password');
                 Route::post('/', 'sendResetLinkEmail');
             });
+
+        Route::controller('ResetPasswordController')
+            ->prefix('reset-password')
+            ->group(function () {
+                Route::get('/{token}', 'showResetForm')->name('password.reset');
+                Route::post('/{token}', 'reset');
+            });
     });
 });
 
-Route::get('/', 'DashboardController')->name('index');
+Route::group(['middleware' => ['auth', 'role:'.implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
+    Route::get('/', 'DashboardController')->name('index');
+});
+
