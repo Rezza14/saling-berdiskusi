@@ -25,4 +25,3 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 Route::get('/', 'DashboardController')->name('index');
-

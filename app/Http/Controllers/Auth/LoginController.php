@@ -31,15 +31,15 @@ class LoginController extends Controller
     {
         try {
             $loginResponse = $loginService->login($request);
-            if (! $loginResponse->success) {
+            if (!$loginResponse->success) {
                 alert($loginResponse->message, 'error');
 
                 return redirect()
-                ->back(302, [], route('login'))
-                ->withInput()
-                ->withErrors([
-                    'message' => $loginResponse->message,
-                ]);
+                    ->back(302, [], route('login'))
+                    ->withInput()
+                    ->withErrors([
+                        'message' => $loginResponse->message,
+                    ]);
             }
 
             toastr($loginResponse->message);
