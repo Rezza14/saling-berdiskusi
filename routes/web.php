@@ -21,8 +21,14 @@ Route::group(['namespace' => 'Auth'], function () {
                 Route::get('/', 'showLoginForm')->name('login');
                 Route::post('/', 'login')->name('login.post');
             });
+
+        Route::controller('ForgotPasswordController')
+            ->prefix('forgot-password')
+            ->group(function () {
+                Route::get('/', 'showLinkRequestForm')->name('forgot-password');
+                Route::post('/', 'sendResetLinkEmail');
+            });
     });
 });
 
 Route::get('/', 'DashboardController')->name('index');
-
