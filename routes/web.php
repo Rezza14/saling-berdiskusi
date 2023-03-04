@@ -51,4 +51,6 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
     });
 
     Route::resource('profile', 'ProfileController');
+
+    Route::resource('user', 'UserController')->middleware(['role:'.implode('|', [RoleEnum::ADMINISTRATOR->value])]);
 });
