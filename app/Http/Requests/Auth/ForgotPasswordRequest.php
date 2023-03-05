@@ -37,7 +37,7 @@ class ForgotPasswordRequest extends FormRequest
         if (!$this->wantsJson()) {
             $this->redirect = route('forgot-password');
             $errors = implode(', ', $validator->errors()->all());
-            alert($errors, 'error');
+            sweetalert($errors, 'error');
         }
         parent::failedValidation($validator);
     }
