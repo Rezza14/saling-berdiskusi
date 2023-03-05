@@ -102,7 +102,7 @@
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href=""><i
+                        <a class="dropdown-item" href="{{ route('profile.index') }}"><i
                                 class="bx bx-user font-size-16 align-middle me-1"></i>
                             Profile</a>
                         <div class="dropdown-divider"></div>
