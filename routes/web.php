@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\RoleEnum;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,43 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Auth'], function () {
-    Route::group(['middleware' => ['guest']], function () {
-        Route::controller('LoginController')
-            ->prefix('login')
-            ->group(function () {
-                Route::get('/', 'showLoginForm')->name('login');
-                Route::post('/', 'login')->name('login.post');
-            });
-
-        Route::controller('ForgotPasswordController')
-            ->prefix('forgot-password')
-            ->group(function () {
-                Route::get('/', 'showLinkRequestForm')->name('forgot-password');
-                Route::post('/', 'sendResetLinkEmail');
-            });
-
-        Route::controller('ResetPasswordController')
-            ->prefix('reset-password')
-            ->group(function () {
-                Route::get('/{token}', 'showResetForm')->name('password.reset');
-                Route::post('/{token}', 'reset');
-            });
-    });
-});
-
-
-Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
-    Route::get('/', 'DashboardController')->name('index');
-
-    Route::controller('ProfileController')
-        ->as('profile.')
-        ->prefix('profile')
-        ->group(function () {
-            Route::put('update/avatar', 'updateAvatar')->name('updateAvatar');
-            Route::put('update/password', 'updatePassword')->name('updatePassword');
-        });
-
-    Route::resource('profile', 'ProfileController');
-    Route::post('logout', 'LogoutController')->name('auth.logout');
+Route::get('/', function () {
+    return view('welcome');
 });
