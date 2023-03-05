@@ -1,4 +1,4 @@
-<x-base title="Forum">
+<x-base title="Discussion Forum">
     <div class="row">
         <div class="col-lg-12" style="position: center">
             <div class="card">
@@ -24,9 +24,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                     </section>
                 </div>
             </div>

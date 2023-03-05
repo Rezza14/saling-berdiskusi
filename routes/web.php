@@ -39,9 +39,9 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
+Route::get('/', 'DashboardController')->name('index');
 
 Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
-    Route::get('/', 'DashboardController')->name('index');
 
     Route::controller('ProfileController')
         ->as('profile.')
@@ -53,6 +53,6 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
 
     Route::resource('profile', 'ProfileController');
 
-    Route::resource('user', 'UserController')->middleware(['role:'.implode('|', [RoleEnum::ADMINISTRATOR->value])]);
+    Route::resource('user', 'UserController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
     Route::post('logout', 'LogoutController')->name('auth.logout');
 });
