@@ -77,7 +77,7 @@ class UpdateUserRequest extends FormRequest
     {
         $this->redirect = route('user.edit', $this->route('user'));
         $errors = implode('<br>', $validator->errors()->all());
-        alert($errors, 'error');
+        sweetAlert($errors, 'error');
         parent::failedValidation($validator);
     }
 }
