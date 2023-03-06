@@ -1,20 +1,21 @@
 <div class="vertical-menu">
 
     <div class="h-100">
+        @if (Auth::user() == !null)
+            <div class="user-wid text-center py-4">
+                <div class="user-img">
+                    <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : 'https://avatars.dicebear.com/api/initials/' . Auth::user()->name . '.png?background=blue' }}"
+                        alt="" class="avatar-md mx-auto rounded-circle">
+                </div>
 
-        <div class="user-wid text-center py-4">
-            <div class="user-img">
-                <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : 'https://avatars.dicebear.com/api/initials/' . Auth::user()->name . '.png?background=blue' }}"
-                    alt="" class="avatar-md mx-auto rounded-circle">
+                <div class="mt-3">
+
+                    <a class="text-dark fw-medium font-size-16">{{ Auth::User()->name }}</a>
+                    <p class="text-body mt-1 mb-0 font-size-13">{{ Auth::user()->getRoleNames()->implode('') }}</p>
+
+                </div>
             </div>
-
-            <div class="mt-3">
-
-                <a class="text-dark fw-medium font-size-16">{{ Auth::User()->name }}</a>
-                <p class="text-body mt-1 mb-0 font-size-13">{{ Auth::user()->getRoleNames()->implode('') }}</p>
-
-            </div>
-        </div>
+        @endif
 
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
