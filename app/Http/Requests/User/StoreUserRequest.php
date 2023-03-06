@@ -76,7 +76,7 @@ class StoreUserRequest extends FormRequest
     {
         $this->redirect = route('user.create', $this->route('user'));
         $errors = implode('<br>', $validator->errors()->all());
-        alert($errors, 'error');
+        sweetAlert($errors, 'error');
         parent::failedValidation($validator);
     }
 }
