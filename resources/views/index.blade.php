@@ -6,7 +6,7 @@
                     <h4 class="card-title mb-4 col-12 col-md-6">All Question</h4>
                     <x-card-button url="" button-type="button"
                         button-class="btn btn-primary waves-effect waves-light mb-4"
-                        icon-class="bx bx-add-to-queue font-size-16 align-middle me-2" text="Kamu Nanya" />
+                        icon-class="bx bx-add-to-queue font-size-16 align-middle me-2" text="Add Discussion Forum" />
                     <x-filter class="mx-1" :fields="[['name' => 'title', 'label' => 'Title', 'type' => 'text']]" reset-url="" />
                     <section id="gallery">
                         <div class="container">
