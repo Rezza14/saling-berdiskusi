@@ -33,14 +33,14 @@ class UserController extends Controller
             $route = $this->route;
             $view = $this->view;
             $response = $userService->index($request);
-            if (! $response->success) {
+            if (!$response->success) {
                 sweetAlert($response->message, 'error');
 
                 return to_route('index')->withErrors($response->message);
             }
             $users = $response->data->with(['roles'])->paginate(10)->withQueryString();
 
-            return view($view.'index', compact('users', 'view', 'route'));
+            return view($view . 'index', compact('users', 'view', 'route'));
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
@@ -58,7 +58,7 @@ class UserController extends Controller
         $route = $this->route;
         $view = $this->view;
 
-        return view($view.'create', compact('view', 'route'));
+        return view($view . 'create', compact('view', 'route'));
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
         try {
             $route = $this->route;
             $response = $userService->store($request);
-            if (! $response->success) {
+            if (!$response->success) {
                 sweetAlert($response->message, 'error');
 
                 return back()->withInput()->withErrors($response->message);
@@ -81,7 +81,7 @@ class UserController extends Controller
             $users = $response->data;
             toastr($response->message);
 
-            return redirect()->route($route.'show', $users);
+            return redirect()->route($route . 'show', $users);
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
@@ -100,7 +100,7 @@ class UserController extends Controller
         $route = $this->route;
         $view = $this->view;
 
-        return view($view.'show', compact('user', 'view', 'route'));
+        return view($view . 'show', compact('user', 'view', 'route'));
     }
 
     /**
@@ -112,7 +112,7 @@ class UserController extends Controller
         $route = $this->route;
         $view = $this->view;
 
-        return view($view.'edit', compact('user', 'view', 'route'));
+        return view($view . 'edit', compact('user', 'view', 'route'));
     }
 
     /**
@@ -120,7 +120,6 @@ class UserController extends Controller
      * @param  UpdateUserRequest  $request
      * @param  User  $user
      * @return RedirectResponse
-     *
      * @throws Throwable
      */
     public function update(UserService $userService, UpdateUserRequest $request, User $user)
@@ -128,7 +127,7 @@ class UserController extends Controller
         try {
             $route = $this->route;
             $response = $userService->update($request, $user);
-            if (! $response->success) {
+            if (!$response->success) {
                 sweetAlert($response->message, 'error');
 
                 return back()->withInput()->withErrors($response->message);
@@ -136,7 +135,7 @@ class UserController extends Controller
             $user = $response->data;
             toastr($response->message);
 
-            return redirect()->route($route.'show', $user);
+            return redirect()->route($route . 'show', $user);
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
@@ -157,19 +156,19 @@ class UserController extends Controller
     {
         try {
             $response = $userService->delete($user);
-            if (! $response->success) {
-                alert($response->message);
+            if (!$response->success) {
+                SweetAlert($response->message, 'error');
 
-                return to_route($this->route.'index');
+                return to_route($this->route . 'index');
             }
 
             toastr($response->message);
 
-            return to_route($this->route.'index');
+            return to_route($this->route . 'index');
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'), 'error');
+            SweetAlert(__('whoops'), 'error');
 
             return to_route('index');
         }
