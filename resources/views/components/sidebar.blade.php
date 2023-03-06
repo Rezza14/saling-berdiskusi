@@ -28,15 +28,14 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('user.index') }}" class="waves-effect">
-                        <i class="mdi mdi-account-circle-outline"></i>
-                        <span>User</span>
-                    </a>
-                </li>
-
-
-
+                @if (Auth::user()->getRoleNames()->implode('') == 'Admin')
+                    <li>
+                        <a href="{{ route('user.index') }}" class="waves-effect">
+                            <i class="mdi mdi-account-circle-outline"></i>
+                            <span>User</span>
+                        </a>
+                    </li>
+                @endif
         </div>
     </div>
 </div>
