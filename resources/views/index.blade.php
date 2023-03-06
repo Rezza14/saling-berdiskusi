@@ -22,7 +22,7 @@
                                             <button class="btn btn-warning btn-sm">#Laravel</button>
                                         </div>
                                         <div class="card-footer text-muted" style="18rem;">
-                                            2 days ago | Faris
+                                            Faris | 2 days ago
                                         </div>
                                     </div>
                                 </div>
