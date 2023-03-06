@@ -15,7 +15,9 @@
                                     <div class="card" style="box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3)">
 
                                         <div class="card-body">
-                                            <h2 class="card-title"><a href=""> Error Blade Laravel</a></h2>
+                                            <a href=""></a>
+                                            <h2 class="card-title"><a href="{{ url('/discussion-show') }}"> Error Blade
+                                                    Laravel</a></h2>
                                             <p class="card-text">Kalau boleh tau ini error nya kenapa yaa</p>
                                             <button class="btn btn-warning btn-sm">#Laravel</button>
                                         </div>
