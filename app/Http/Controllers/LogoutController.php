@@ -12,7 +12,8 @@ class LogoutController extends Controller
     public function __invoke(): Redirector|Application|RedirectResponse
     {
         auth()->logout();
+        toastr('Successfully log out from application.');
 
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }
