@@ -28,7 +28,7 @@
                     </a>
                 </li>
 
-                @if (Auth::user()->getRoleNames()->implode('') == 'Admin')
+                @if (Auth::user()->getRoleNames()->implode('') == 'Administrator')
                     <li>
                         <a href="{{ route('user.index') }}" class="waves-effect">
                             <i class="mdi mdi-account-circle-outline"></i>
