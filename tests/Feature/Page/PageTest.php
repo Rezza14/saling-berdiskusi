@@ -9,21 +9,21 @@ use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
 /**
- * @group page index page
+ * @group page index
  */
-it('can\'t access pages page (unauthorize)', function () {
+it('can\'t access index page(unauthorize)', function () {
     get(route('page.index'))
         ->assertStatus(302)
         ->assertRedirect(route('login'));
 });
 
-it('can\'t access pages page (user not admin)', function (User $user) {
+it('can\'t access index page (user not admin)', function (User $user) {
     actingAs($user)
         ->get(route('page.index'))
         ->assertForbidden();
 })->with('user');
 
-it('can access pages page', function (User $admin) {
+it('can access index page', function (User $admin) {
     actingAs($admin)
         ->get(route('page.index'))
         ->assertSeeText('index page')
@@ -31,7 +31,7 @@ it('can access pages page', function (User $admin) {
 })->with('user_administrator');
 
 /**
- * @group pages create page
+ * @group page create
  */
 it('can\'t access pages create page (unauthorized)', function () {
     get(route('page.create'))
@@ -53,7 +53,7 @@ it('can access pages create page', function (User $admin) {
 })->with('user_administrator');
 
 /**
- * @group pages store
+ * @group page store
  */
 it('can\'t create page (unauthorized)', function () {
     post(route('page.store'))
@@ -86,7 +86,7 @@ it('can create page', function (User $admin) {
 })->with('user_administrator');
 
 /**
- * @group Pages show page
+ * @group page show page
  */
 it('can\'t access pages detail page (unauthorized)', function () {
     get(route('page.show', 1))
@@ -114,7 +114,7 @@ it('can access pages detail page', function (User $admin, Page $page) {
 })->with('user_administrator', 'page');
 
 /**
- * @group pages edit page
+ * @group page edit page
  */
 it('can\'t access pages edit page (unauthorized)', function () {
     get(route('page.edit', 1))
@@ -142,7 +142,7 @@ it('can access pages edit page', function (User $admin, Page $page) {
 })->with('user_administrator', 'page');
 
 /**
- * @group pages update
+ * @group page update
  */
 it('can\'t update page (unauthorized)', function () {
     put(route('page.update', 1))
@@ -181,7 +181,7 @@ it('can update Page', function (User $admin, Page $page) {
 })->with('user_administrator', 'page');
 
 /**
- * @group pages destroy
+ * @group page destroy
  */
 it('can\'t deleted page (unauthorized)', function () {
     delete(route('page.destroy', 1))
@@ -207,3 +207,25 @@ it('can delete page', function (User $admin, Page $page) {
         ->assertRedirect(route('page.index'))
         ->assertSessionDoesntHaveErrors();
 })->with('user_administrator', 'page');
+
+/**
+ * @group page pages
+ */
+it('can\'t access pages page (unauthorized)', function () {
+    get(route('pages', -1))
+        ->assertStatus(302)
+        ->assertRedirect(route('login'));
+});
+
+it('can\'t access pages page (not found)', function (User $user) {
+    actingAs($user)
+        ->get(route('pages', -1))
+        ->assertNotFound();
+})->with('user');
+
+it('can access pages page', function (User $user, Page $page) {
+    actingAs($user)
+        ->get(route('pages', $page))
+        ->assertSeeText('pages')
+        ->assertSuccessful();
+})->with('user_student', 'page');

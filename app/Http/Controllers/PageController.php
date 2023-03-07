@@ -71,6 +71,14 @@ class PageController extends Controller
         }
     }
 
+    public function pages(Page $page)
+    {
+        $route = $this->route;
+        $view = $this->view;
+
+        return view($view . 'pages', compact('page', 'view', 'route'));
+    }
+
     public function show(Page $page)
     {
         $route = $this->route;
