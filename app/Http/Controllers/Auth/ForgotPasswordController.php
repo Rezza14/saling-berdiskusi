@@ -14,23 +14,11 @@ use Illuminate\Support\Facades\Log;
 
 class ForgotPasswordController extends Controller
 {
-    /**
-     * Show forgot password form.
-     *
-     * @return Factory|View|Application
-     */
     public function showLinkRequestForm(): Factory|View|Application
     {
         return view('auth.forgot');
     }
 
-    /**
-     * Send a reset link to the given user.
-     *
-     * @param  ForgotPasswordRequest  $request
-     * @param  ForgotPasswordService  $forgotPasswordService
-     * @return RedirectResponse
-     */
     public function sendResetLinkEmail(ForgotPasswordRequest $request, ForgotPasswordService $forgotPasswordService): RedirectResponse
     {
         try {
