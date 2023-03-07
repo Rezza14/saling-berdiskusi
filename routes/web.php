@@ -43,14 +43,18 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
     Route::get('/', 'DashboardController')->name('index');
 
     Route::controller('ProfileController')
-    ->as('profile.')
-    ->prefix('profile')
-    ->group(function () {
-        Route::put('update/avatar', 'updateAvatar')->name('updateAvatar');
-        Route::put('update/password', 'updatePassword')->name('updatePassword');
-    });
+        ->as('profile.')
+        ->prefix('profile')
+        ->group(function () {
+            Route::put('update/avatar', 'updateAvatar')->name('updateAvatar');
+            Route::put('update/password', 'updatePassword')->name('updatePassword');
+        });
 
     Route::resource('profile', 'ProfileController');
 
-    Route::resource('user', 'UserController')->middleware(['role:'.implode('|', [RoleEnum::ADMINISTRATOR->value])]);
+    Route::resource('user', 'UserController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
+
+    Route::resource('discussions', 'DiscussionController');
+
+    Route::resource('comments', 'CommentController')->only(['store', 'edit', 'update', 'delete']);
 });
