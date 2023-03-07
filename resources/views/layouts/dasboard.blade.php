@@ -4,7 +4,7 @@
 @props([
     'css' => null,
     'script' => null,
-    'breadcrumbs' => null,
+    // 'breadcrumbs' => null,
 ])
 
 <head>

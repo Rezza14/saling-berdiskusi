@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Routing\Redirector;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,8 @@ class LogoutController extends Controller
     public function __invoke(): Redirector|Application|RedirectResponse
     {
         auth()->logout();
+        toastr('Successfully log out from application.');
 
-        return redirect()->route('login');
+        return redirect()->route('index');
     }
 }

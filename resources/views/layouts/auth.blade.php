@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ? "$title - " : null }}</title>
     <meta content="Vistech" name="author" />
-    <link rel="icon" href="{{ asset('assets/images/favicon-astra.png') }}">
+    <link rel="icon" href="{{ asset('assets/images/LOGO TOK@2.png') }}">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
@@ -27,7 +27,7 @@
 
 <body>
 
-    <div class="account-pages my-5 pt-sm-5">
+    <div class="account-pages my-15 pt-sm-15">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
