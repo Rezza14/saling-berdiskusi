@@ -8,7 +8,7 @@
                         <h5 class="text-white font-size-20">Login</h5>
                         <p class="text-white-50 mb-0">Login to continue</p>
                         <a href="{{ route('login') }}" class="logo logo-admin mt-4">
-                            <img src="{{ asset('assets/images/LOGO TOK@2.png') }}" alt="" height="50">
+                            <img src="{{ asset('assets/images/logoS.png') }}" alt="" height="50">
                         </a>
                     </div>
                 </div>

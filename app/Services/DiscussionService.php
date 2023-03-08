@@ -25,8 +25,8 @@ class DiscussionService extends BaseService
         try {
             $discussion = $this->discussion->query();
             $discussion->orderByDesc('created_at');
-            $discussion->when($request->filled('name'), function ($query) use ($request) {
-                return $query->where('name', 'like', "%$request->name%");
+            $discussion->when($request->filled('title'), function ($query) use ($request) {
+                return $query->where('title', 'like', "%$request->title%");
             });
 
             return $this->response(true, 'Successfully get discussion data', $discussion);

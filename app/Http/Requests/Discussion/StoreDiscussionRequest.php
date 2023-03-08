@@ -24,6 +24,9 @@ class StoreDiscussionRequest extends FormRequest
             'title' => [
                 'required',
             ],
+            'tags' => [
+                'nullable',
+            ],
             'discussion-trixFields' => [
                 'required',
                 'array',

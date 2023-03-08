@@ -2,21 +2,27 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Comment;
+use App\Traits\TrixRender;
+use App\Traits\FormatDates;
+use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Sluggable\HasSlug;
 
 class Discussion extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, HasTrixRichText, TrixRender, FormatDates;
 
     protected $fillable = [
         'user_id',
         'title',
         'slug',
+        'tags',
         'discussion-trixFields',
     ];
 

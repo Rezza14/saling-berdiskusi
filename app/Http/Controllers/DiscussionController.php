@@ -4,49 +4,18 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Discussion;
-use Illuminate\Http\Request;
 use App\Services\DiscussionService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Discussion\StoreDiscussionRequest;
 use App\Http\Requests\Discussion\UpdateDiscussionRequest;
+use Auth;
 
 class DiscussionController extends Controller
 {
-    public string $route = 'discussion.';
+    public string $route = 'discussions.';
 
     public string $view = 'discussions.';
-
-    public function index(DiscussionService $discussionService, Request $request)
-    {
-        try {
-            $route = $this->route;
-            $view = $this->view;
-            $response = $discussionService->index($request);
-            if (!$response->success) {
-                alert($response->message);
-
-                return to_route('index')->withErrors($response->message);
-            }
-            $discussion = $response->data->with('user')->paginate(10)->withQueryString();
-
-            return view($view . 'index', compact('discussion', 'view', 'route'));
-        } catch (Exception $e) {
-            Log::emergency($e->getMessage());
-
-            alert(__('whoops'));
-
-            return to_route('index')->withErrors(__('whoops'));
-        }
-    }
-
-    public function create()
-    {
-        $route = $this->route;
-        $view = $this->view;
-
-        return view($view . 'create', compact('view', 'route'));
-    }
 
     public function store(DiscussionService $discussionService, StoreDiscussionRequest $request)
     {
@@ -54,7 +23,7 @@ class DiscussionController extends Controller
             $route = $this->route;
             $response = $discussionService->store($request);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -65,19 +34,10 @@ class DiscussionController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'));
 
             return back()->withInput()->withErrors(__('whoops'));
         }
-    }
-
-    public function show(Discussion $discussion)
-    {
-        $route = $this->route;
-        $view = $this->view;
-
-        $comments = $discussion->comments()->paginate(10);
-        return view($view . 'show', compact('route', 'view', 'discussion', 'comments'));
     }
 
     public function edit(Discussion $discussion)
@@ -85,6 +45,9 @@ class DiscussionController extends Controller
         $route = $this->route;
         $view = $this->view;
 
+        if(Auth::user()->id != $discussion->user_id) {
+            abort(403);
+        }
         return view($view . 'edit', compact('view', 'discussion', 'route'));
     }
 
@@ -94,7 +57,7 @@ class DiscussionController extends Controller
             $route = $this->route;
             $response = $discussionService->update($request, $discussion);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -105,7 +68,7 @@ class DiscussionController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'));
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -114,20 +77,19 @@ class DiscussionController extends Controller
     public function destroy(DiscussionService $discussionService, Discussion $discussion)
     {
         try {
-            $route = $this->route;
             $response = $discussionService->delete($discussion);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
-                return to_route($route . 'index');
+                return to_route('index');
             }
             toastr($response->message);
 
-            return back(302, [], route($route . 'index'));
+            return back(302, [], route('index'));
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'));
 
             return to_route('index');
         }

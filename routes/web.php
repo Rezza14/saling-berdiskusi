@@ -39,7 +39,11 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-Route::get('/', 'DashboardController')->name('index');
+Route::get('/', 'DashboardController@index')->name('index');
+
+Route::get('/discussions/{discussion}', 'DashboardController@show')->name('discussions.show');
+
+Route::get('/discussions', 'DashboardController@create')->name('discussions.create');
 
 Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
 
@@ -55,7 +59,9 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
 
     Route::resource('user', 'UserController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
 
-    Route::resource('discussions', 'DiscussionController');
+    Route::resource('discussions', 'DiscussionController')->except(['index', 'show', 'create']);
 
     Route::resource('comments', 'CommentController')->only(['store', 'edit', 'update', 'delete']);
+
+    Route::post('logout', 'LogoutController')->name('auth.logout');
 });
