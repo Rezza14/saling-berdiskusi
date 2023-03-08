@@ -62,4 +62,6 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
     Route::resource('page', 'PageController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
 
     Route::post('logout', 'LogoutController')->name('auth.logout');
+
+    Route::view('/discussion-show', 'discussion.show');
 });
