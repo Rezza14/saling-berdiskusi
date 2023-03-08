@@ -50,7 +50,7 @@ class ResetPasswordRequest extends FormRequest
                 'email' => $this->query('email'),
             ]);
             $errors = implode(', ', $validator->errors()->all());
-            alert($errors, 'error');
+            sweetalert($errors, 'error');
         }
         parent::failedValidation($validator);
     }

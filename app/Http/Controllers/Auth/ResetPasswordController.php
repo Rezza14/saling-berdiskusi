@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
     {
         try {
             $resetPasswordResponse = $resetPasswordService->reset($request);
-            if (! $resetPasswordResponse->success) {
+            if (!$resetPasswordResponse->success) {
                 sweetAlert($resetPasswordResponse->data, 'error');
 
                 return to_route('password.reset', [
