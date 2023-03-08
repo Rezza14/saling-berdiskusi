@@ -27,10 +27,6 @@ class UserService extends BaseService
         $this->user = new User();
     }
 
-    /**
-     * @param  Request  $request
-     * @return object
-     */
     public function index(Request $request): object
     {
         try {
@@ -76,13 +72,6 @@ class UserService extends BaseService
         }
     }
 
-    /**
-     * @param  UpdateUserRequest  $request
-     * @param  User  $user
-     * @return object
-     *
-     * @throws Throwable
-     */
     public function update(UpdateUserRequest $request, User $user): object
     {
         DB::beginTransaction();
@@ -119,12 +108,6 @@ class UserService extends BaseService
         }
     }
 
-    /**
-     * @param  User  $user
-     * @return object
-     *
-     * @throws Throwable
-     */
     public function delete(User $user): object
     {
         DB::beginTransaction();
