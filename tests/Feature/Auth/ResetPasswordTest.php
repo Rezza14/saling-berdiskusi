@@ -11,7 +11,7 @@ it('can show the reset password page', function () {
         'token' => faker()->uuid,
         'email' => faker()->email,
     ]))->assertStatus(200)
-        ->assertSeeText('reset page');
+        ->assertSeeText('Reset Password');
 });
 
 it('can\'t reset password (validation error)', function () {
