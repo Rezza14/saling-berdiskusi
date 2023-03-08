@@ -8,13 +8,8 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Throwable;
 
 class UserController extends Controller
 {
@@ -22,11 +17,6 @@ class UserController extends Controller
 
     public string $view = 'user.';
 
-    /**
-     * @param  UserService  $userService
-     * @param  Request  $request
-     * @return Application|Factory|View|RedirectResponse
-     */
     public function index(UserService $userService, Request $request)
     {
         try {
@@ -50,9 +40,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * @return Application|Factory|View
-     */
     public function create()
     {
         $route = $this->route;
@@ -61,13 +48,6 @@ class UserController extends Controller
         return view($view . 'create', compact('view', 'route'));
     }
 
-    /**
-     * @param  UserService  $userService
-     * @param  StoreUserRequest  $request
-     * @return RedirectResponse
-     *
-     * @throws Throwable
-     */
     public function store(UserService $userService, StoreUserRequest $request)
     {
         try {
@@ -91,10 +71,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * @param  User  $user
-     * @return Application|Factory|View
-     */
     public function show(User $user)
     {
         $route = $this->route;
@@ -103,10 +79,6 @@ class UserController extends Controller
         return view($view . 'show', compact('user', 'view', 'route'));
     }
 
-    /**
-     * @param  User  $user
-     * @return Application|Factory|View
-     */
     public function edit(User $user)
     {
         $route = $this->route;
@@ -115,13 +87,6 @@ class UserController extends Controller
         return view($view . 'edit', compact('user', 'view', 'route'));
     }
 
-    /**
-     * @param  UserService  $userService
-     * @param  UpdateUserRequest  $request
-     * @param  User  $user
-     * @return RedirectResponse
-     * @throws Throwable
-     */
     public function update(UserService $userService, UpdateUserRequest $request, User $user)
     {
         try {
@@ -145,13 +110,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * @param  UserService  $userService
-     * @param  User  $user
-     * @return RedirectResponse
-     *
-     * @throws Throwable
-     */
     public function destroy(UserService $userService, User $user)
     {
         try {

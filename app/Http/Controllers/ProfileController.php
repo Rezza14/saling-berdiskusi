@@ -8,10 +8,7 @@ use App\Http\Requests\Profile\UpdatePasswordRequest;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Services\ProfileService;
 use Exception;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
-use Throwable;
-use function view;
 
 class ProfileController extends Controller
 {
@@ -29,13 +26,6 @@ class ProfileController extends Controller
         return view($view.'index', compact('route', 'view', 'user'));
     }
 
-    /**
-     * @param  ProfileService  $profileService
-     * @param  UpdateProfileRequest  $request
-     * @return RedirectResponse
-     *
-     * @throws Throwable
-     */
     public function update(ProfileService $profileService, UpdateProfileRequest $request)
     {
         try {
@@ -57,13 +47,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * @param  ProfileService  $profileService
-     * @param  UpdateAvatarRequest  $request
-     * @return RedirectResponse
-     *
-     * @throws Throwable
-     */
     public function updateAvatar(ProfileService $profileService, UpdateAvatarRequest $request)
     {
         try {
@@ -85,13 +68,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * @param  ProfileService  $profileService
-     * @param  UpdatePasswordRequest  $request
-     * @return RedirectResponse
-     *
-     * @throws Throwable
-     */
     public function updatePassword(ProfileService $profileService, UpdatePasswordRequest $request)
     {
         try {
