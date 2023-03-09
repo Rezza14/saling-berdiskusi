@@ -34,7 +34,7 @@ class UpdateUserRequest extends FormRequest
                 'max:2048',
             ],
             'password' => [
-                'required',
+                'nullable',
                 'min:8',
                 'max:255',
                 'confirmed',
@@ -60,7 +60,6 @@ class UpdateUserRequest extends FormRequest
             'username.max' => 'Username must be less than 255 characters',
             'image.image' => 'User image must be an image',
             'image.max' => 'User image must be less than 2 MB',
-            'password.required' => 'Password is required',
             'password.min' => 'Password must be at least 8 characters',
             'password.max' => 'Password must be less than 255 characters',
             'password.confirmed' => 'Password confirmation does not match',

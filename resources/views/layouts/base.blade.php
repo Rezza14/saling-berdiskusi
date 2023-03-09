@@ -30,9 +30,7 @@
     <div class="container-fluid">
         <div id="layout-wrapper">
             <x-header />
-            @if (Auth::user() == !null)
             <x-sidebar />
-            @endif
             <div class="main-content">
                 <div class="page-content">
                     <div class="row">
