@@ -28,14 +28,35 @@
                     </a>
                 </li>
 
-                @if (Auth::user()->getRoleNames()->implode('') == 'Administrator')
+                @if (Auth::user() != null && Auth::user()->getRoleNames()->implode('') == 'Administrator')
                     <li>
                         <a href="{{ route('user.index') }}" class="waves-effect">
                             <i class="mdi mdi-account-circle-outline"></i>
                             <span>User</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('page.index') }}" class="waves-effect">
+                            <i class="bx bx-book-open"></i>
+                            <span>Pages</span>
+                        </a>
+                    </li>
                 @endif
+
+                {{-- till this --}}
+                <li>
+                    <a href="{{ route('page.show', 'about-us') }}" class="waves-effect">
+                        <i class="mdi mdi-archive"></i>
+                        <span>About us</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('page.show', 'rules') }}" class="waves-effect">
+                        <i class="mdi mdi-alert"></i>
+                        <span>Rules</span>
+                    </a>
+                </li>
         </div>
     </div>
 </div>

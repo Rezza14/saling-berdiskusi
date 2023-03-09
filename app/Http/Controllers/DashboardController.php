@@ -6,9 +6,14 @@ use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Services\DiscussionService;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 
 class DashboardController extends Controller
 {
+    public string $route = 'pages.';
+    public string $view = 'pages.';
+
+    public function index()
     public string $route = 'discussions.';
 
     public string $view = 'discussions.';
@@ -43,5 +48,37 @@ class DashboardController extends Controller
         $user = Auth()->user();
         $comments = $discussion->comments()->paginate(10);
         return view($view . 'show', compact('route', 'view', 'discussion', 'comments', 'user'));
+    }
+
+    public function pageCreate()
+    {
+        $route = $this->route;
+        $view = $this->view;
+
+        return view($view . 'create', compact('view', 'route'));
+    }
+
+    public function pageShow(Page $page)
+    {
+        $route = $this->route;
+        $view = $this->view;
+
+        return view($view . 'show', compact('page', 'route', 'view'));
+    }
+
+    public function pageCreate()
+    {
+        $route = $this->route;
+        $view = $this->view;
+
+        return view($view . 'create', compact('view', 'route'));
+    }
+
+    public function pageShow(Page $page)
+    {
+        $route = $this->route;
+        $view = $this->view;
+
+        return view($view . 'show', compact('page', 'route', 'view'));
     }
 }

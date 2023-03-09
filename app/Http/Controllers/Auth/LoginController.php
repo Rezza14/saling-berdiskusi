@@ -14,19 +14,11 @@ use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
-    /**
-     * Show the application's login form.
-     *
-     * @return Application|Factory|View
-     */
     public function showLoginForm(): View|Factory|Application
     {
         return view('auth.login');
     }
 
-    /**
-     * Log in the user.
-     */
     public function login(LoginRequest $request, LoginService $loginService): RedirectResponse
     {
         try {

@@ -15,13 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class ResetPasswordController extends Controller
 {
-    /**
-     * Show the application's reset password form.
-     *
-     * @param  Request  $request
-     * @param  string  $token
-     * @return Application|Factory|View
-     */
     public function showResetForm(Request $request, string $token): View|Factory|Application
     {
         $email = $request->query('email');
@@ -29,18 +22,11 @@ class ResetPasswordController extends Controller
         return view('auth.reset', compact('email', 'token'));
     }
 
-    /**
-     * Reset the given user's password.
-     *
-     * @param  ResetPasswordRequest  $request
-     * @param  ResetPasswordService  $resetPasswordService
-     * @return RedirectResponse
-     */
     public function reset(ResetPasswordRequest $request, ResetPasswordService $resetPasswordService): RedirectResponse
     {
         try {
             $resetPasswordResponse = $resetPasswordService->reset($request);
-            if (! $resetPasswordResponse->success) {
+            if (!$resetPasswordResponse->success) {
                 sweetAlert($resetPasswordResponse->data, 'error');
 
                 return to_route('password.reset', [

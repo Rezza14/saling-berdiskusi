@@ -39,11 +39,15 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-Route::get('/', 'DashboardController@index')->name('index');
+Route::get('/', 'DashboardController@index@index')->name('index');
 
 Route::get('/discussions/{discussion}', 'DashboardController@show')->name('discussions.show');
 
 Route::get('/discussions', 'DashboardController@create')->name('discussions.create');
+
+Route::get('page/{page}', 'DashboardController@pageShow')->name('page.show');
+
+Route::get('/pages', 'DashboardController@pageCreate')->name('page.create');
 
 Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
 
@@ -62,6 +66,9 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
     Route::resource('discussions', 'DiscussionController')->except(['index', 'show', 'create']);
 
     Route::resource('comments', 'CommentController')->only(['store', 'edit', 'update', 'delete']);
+
+
+    Route::resource('page', 'PageController')->except(['show', 'create']);
 
     Route::post('logout', 'LogoutController')->name('auth.logout');
 });
