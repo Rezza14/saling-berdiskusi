@@ -24,28 +24,20 @@ class PageController extends Controller
             $view = $this->view;
             $response = $PageService->index($request);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return to_route('index')->withErrors($response->message);
             }
-            $page = $response->data->with('user')->paginate(10)->withQueryString();
+            $page = $response->data->paginate(10)->withQueryString();
 
             return view($view . 'index', compact('page', 'view', 'route'));
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return to_route('index')->withErrors(__('whoops'));
         }
-    }
-
-    public function create()
-    {
-        $route = $this->route;
-        $view = $this->view;
-
-        return view($view . 'create', compact('view', 'route'));
     }
 
     public function store(PageService $pagesServices, StorePageRequest $request)
@@ -54,7 +46,7 @@ class PageController extends Controller
             $route = $this->route;
             $response = $pagesServices->store($request);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -65,18 +57,10 @@ class PageController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
-    }
-
-    public function pages(Page $page)
-    {
-        $route = $this->route;
-        $view = $this->view;
-
-        return view($view . 'pages', compact('page', 'view', 'route'));
     }
 
     public function show(Page $page)
@@ -101,7 +85,7 @@ class PageController extends Controller
             $route = $this->route;
             $response = $PageService->update($request, $page);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -112,7 +96,7 @@ class PageController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -124,7 +108,7 @@ class PageController extends Controller
             $route = $this->route;
             $response = $pagesService->delete($page);
             if (!$response->success) {
-                alert($response->message);
+                sweetalert($response->message);
 
                 return to_route($route . 'index');
             }
@@ -134,7 +118,7 @@ class PageController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return to_route('index');
         }

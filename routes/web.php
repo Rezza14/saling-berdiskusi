@@ -39,7 +39,11 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
-Route::get('/', 'DashboardController')->name('index');
+Route::get('/', 'DashboardController@index')->name('index');
+
+Route::get('page/{page}', 'DashboardController@pageShow')->name('page.show');
+
+Route::get('/pages', 'DashboardController@pageCreate')->name('page.create');
 
 Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINISTRATOR->value, RoleEnum::TEACHER->value, RoleEnum::STUDENT->value])]], function () {
 
@@ -55,11 +59,7 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
 
     Route::resource('user', 'UserController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
 
-    Route::controller('PageController')
-    ->group(function () {
-        Route::get('pages/{page}', 'PageController@pages')->name('pages');
-    });
-    Route::resource('page', 'PageController')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
+    Route::resource('page', 'PageController')->except(['show', 'create']);
 
     Route::post('logout', 'LogoutController')->name('auth.logout');
 
