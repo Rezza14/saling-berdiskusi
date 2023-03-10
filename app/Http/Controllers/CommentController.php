@@ -2,93 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Comment;
-use App\Services\CommentService;
-use Illuminate\Support\Facades\Log;
+use App\Models\Discussion;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Comment\StoreCommentRequest;
-use App\Http\Requests\Comment\UpdateCommentRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public string $route = 'comment.';
+    public string $route = 'discussions.';
 
-    public string $view = 'comments.';
+    public string $view = 'discussions.';
 
-    public function store(CommentService $commentService, StoreCommentRequest $request)
+    public function store(Request $request, Discussion $discussion)
     {
-        try {
-            $route = $this->route;
-            $response = $commentService->store($request);
-            if (!$response->success) {
-                alert($response->message);
+        $route = $this->route;
 
-                return back()->withInput()->withErrors($response->message);
-            }
-            $comment = $response->data;
-            toastr($response->message);
+        $request->validate([
+            'comment' => 'required',
+        ]);
 
-            return redirect()->route($route . 'show', $comment);
-        } catch (Exception $e) {
-            Log::emergency($e->getMessage());
+        $comment = new Comment();
+        $comment->comment = $request->comment;
+        $comment->user_id = Auth::id();
+        $comment->discussion_id = $discussion->id;
+        $comment->save();
 
-            alert(__('whoops'));
-
-            return back()->withInput()->withErrors(__('whoops'));
-        }
+        return redirect()->route($route . 'show', $discussion);
     }
 
     public function edit(Comment $comment)
     {
         $route = $this->route;
         $view = $this->view;
+        $user = Auth::user();
 
-        return view($view . 'edit', compact('view', 'comment', 'route'));
+        if ($user->id != $comment->user_id) {
+            abort(403);
+        } elseif (Auth::user()->getRoleNames()->implode('') != 'administrator')
+            return view($view . 'editComments', compact('view', 'comment', 'route'));
     }
 
-    public function update(CommentService $commentService, UpdateCommentRequest $request, Comment $comment)
+    public function update(Request $request, Comment $comment)
     {
-        try {
-            $route = $this->route;
-            $response = $commentService->update($request, $comment);
-            if (!$response->success) {
-                alert($response->message);
+        $route = $this->route;
 
-                return back()->withInput()->withErrors($response->message);
-            }
-            $comment = $response->data;
-            toastr($response->message);
-
-            return redirect()->route($route . 'show', $comment);
-        } catch (Exception $e) {
-            Log::emergency($e->getMessage());
-
-            alert(__('whoops'));
-
-            return back()->withInput()->withErrors(__('whoops'));
+        if (Auth::user()->id != $comment->user_id) {
+            abort(403);
         }
+        $data['comment'] = $request->comment;
+        $comment->update($data);
+        $discussion_id = $comment->discussion_id;
+        return redirect()->route($route . 'show', $discussion_id);
     }
 
-    public function destroy(CommentService $commentService, Comment $comment)
+    public function destroy(Comment $comment)
     {
-        try {
-            $route = $this->route;
-            $response = $commentService->delete($comment);
-            if (!$response->success) {
-                alert($response->message);
+        $route = $this->route;
 
-                return to_route($route . 'index');
-            }
-            toastr($response->message);
-
-            return back(302, [], route($route . 'index'));
-        } catch (Exception $e) {
-            Log::emergency($e->getMessage());
-
-            alert(__('whoops'));
-
-            return to_route('index');
+        if (Auth::user()->id == $comment->user_id) {
+            $comment->delete();
+            $discussion_id = $comment->discussion_id;
+            return redirect()->route($route . 'show', $discussion_id);
+        } elseif (Auth::user()->getRoleNames()->implode('') == 'administrator') {
+            $comment->delete();
+            $discussion_id = $comment->discussion_id;
+            return redirect()->route($route . 'show', $discussion_id);
         }
+        abort(403);
     }
 }

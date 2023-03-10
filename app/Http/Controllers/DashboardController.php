@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Services\DiscussionService;
 use App\Http\Controllers\Controller;
-use App\Models\Page;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public string $route = 'pages.';
-    public string $view = 'pages.';
+    public string $routeDiscussion = 'discussions.';
 
-    public function index()
-    public string $route = 'discussions.';
+    public string $viewDiscussion = 'discussions.';
 
-    public string $view = 'discussions.';
+    public string $routePages = 'pages.';
+
+    public string $viewPages = 'pages.';
 
     public function index(DiscussionService $discussionService, Request $request)
     {
         $discussionServiceResponse = $discussionService->index($request);
-        if (! $discussionServiceResponse->success) {
+        if (!$discussionServiceResponse->success) {
             $discussion = [];
         } else {
             $discussion = $discussionServiceResponse->data->paginate(6)->withQueryString();
@@ -32,52 +33,40 @@ class DashboardController extends Controller
         return view('index', compact('discussion'));
     }
 
-    public function create()
+    public function discussionCreate()
     {
-        $route = $this->route;
-        $view = $this->view;
+        $route = $this->routeDiscussion;
+        $view = $this->viewDiscussion;
+        $user = Auth::user();
 
         return view($view . 'create', compact('view', 'route'));
     }
 
-    public function show(Discussion $discussion)
+    public function discussionShow(Discussion $discussion)
     {
-        $route = $this->route;
-        $view = $this->view;
+        $route = $this->routeDiscussion;
+        $view = $this->viewDiscussion;
 
         $user = Auth()->user();
-        $comments = $discussion->comments()->paginate(10);
-        return view($view . 'show', compact('route', 'view', 'discussion', 'comments', 'user'));
+        $comments = $discussion->comments()->with('user')->orderByDesc('created_at')->get();
+        $commentsCount = $discussion->comments()->count();
+
+        return view($view . 'show', compact('route', 'view', 'discussion', 'comments', 'user', 'commentsCount'));
     }
 
     public function pageCreate()
     {
-        $route = $this->route;
-        $view = $this->view;
+        $route = $this->routePages;
+        $view = $this->viewPages;
+        $user = Auth::user();
 
         return view($view . 'create', compact('view', 'route'));
     }
 
     public function pageShow(Page $page)
     {
-        $route = $this->route;
-        $view = $this->view;
-
-        return view($view . 'show', compact('page', 'route', 'view'));
-    }
-
-    public function pageCreate()
-    {
-        $route = $this->route;
-        $view = $this->view;
-
-        return view($view . 'create', compact('view', 'route'));
-    }
-
-    public function pageShow(Page $page)
-    {
-        $route = $this->route;
-        $view = $this->view;
+        $route = $this->routePages;
+        $view = $this->viewPages;
 
         return view($view . 'show', compact('page', 'route', 'view'));
     }

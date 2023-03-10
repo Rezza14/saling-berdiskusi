@@ -23,15 +23,15 @@ class ProfileController extends Controller
         $response = $profileService->index();
         $user = $response->data;
 
-        return view($view.'index', compact('route', 'view', 'user'));
+        return view($view . 'index', compact('route', 'view', 'user'));
     }
 
     public function update(ProfileService $profileService, UpdateProfileRequest $request)
     {
         try {
             $response = $profileService->updateProfile($request);
-            if (! $response->success) {
-                alert($response->message, 'error');
+            if (!$response->success) {
+                sweetalert($response->message, 'error');
 
                 return back()->withErrors($response->message);
             }
@@ -41,7 +41,7 @@ class ProfileController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return back()->withErrors(__('whoops'));
         }
@@ -51,8 +51,8 @@ class ProfileController extends Controller
     {
         try {
             $response = $profileService->updateAvatar($request);
-            if (! $response->success) {
-                alert($response->message, 'error');
+            if (!$response->success) {
+                sweetalert($response->message, 'error');
 
                 return back()->withErrors($response->message);
             }
@@ -62,7 +62,7 @@ class ProfileController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return back()->withErrors(__('whoops'));
         }
@@ -72,8 +72,8 @@ class ProfileController extends Controller
     {
         try {
             $response = $profileService->updatePassword($request);
-            if (! $response->success) {
-                alert($response->message, 'error');
+            if (!$response->success) {
+                sweetalert($response->message, 'error');
 
                 return back()->withErrors($response->message);
             }
@@ -83,7 +83,7 @@ class ProfileController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            alert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return back()->withErrors(__('whoops'));
         }

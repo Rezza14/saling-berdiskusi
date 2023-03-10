@@ -1,4 +1,4 @@
-<x-base title="Discussion Forum">
+<x-base title="Login">
     <x-auth title="Login">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
         <div class="container">

@@ -114,7 +114,7 @@ class PageController extends Controller
             }
             toastr($response->message);
 
-            return back(302, [], route($route . 'index'));
+            return redirect()->route($route . 'index');
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
