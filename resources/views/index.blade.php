@@ -4,9 +4,11 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4 col-12 col-md-6">All Discussions</h4>
-                    <x-card-button url="{{ route('discussions.create') }}" button-type="button"
-                        button-class="btn btn-primary waves-effect waves-light mb-4"
-                        icon-class="bx bx-add-to-queue font-size-16 align-middle me-2" text="Add Discussion Forum" />
+                    @if (Auth::user() != null)
+                        <x-card-button url="{{ route('discussions.create') }}" button-type="button"
+                            button-class="btn btn-primary waves-effect waves-light mb-4"
+                            icon-class="bx bx-add-to-queue font-size-16 align-middle me-2" text="Add Discussion Forum" />
+                    @endif
                     <x-filter class="mx-1" :fields="[['name' => 'title', 'label' => 'Title', 'type' => 'text']]" reset-url="{{ route('index') }}" />
                     <section id="gallery">
                         <div class="container">
@@ -16,9 +18,9 @@
                                         <div class="card" style="box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3)">
 
                                             <div class="card-body">
-                                                <a href="{{ route('discussions.show', $discussions->slug) }}"></a>
+                                                <a href="{{ route('discussions.show', $discussions->id) }}"></a>
                                                 <h2 class="card-title"><a
-                                                        href="{{ route('discussions.show', $discussions->slug) }}">
+                                                        href="{{ route('discussions.show', $discussions->id) }}">
                                                         {{ $discussions->title }}</a></h2>
                                                 <p class="card-text"> {!! str(strip_tags($discussions->trixRender('content')))->limit(20) !!}</p>
                                                 <button class="btn btn-warning btn-sm">{{ $discussions->tags }}</button>

@@ -20,14 +20,6 @@
 @endif
 
 <div class="mb-3 row">
-    <label for="{{ $identifier }}"
-            @class([
-                 'col-md-2 col-form-label',
-                 'asterisk' => $required,
-             ])
-    >{{ $labelText }}</label>
-    <div class="col-md-10">
-        @if(!empty($data))
     <label for="{{ $identifier }}" @class(['col-md-2 col-form-label', 'asterisk' => $required])>{{ $labelText }}</label>
     <div class="col-md-10">
         @if (!empty($data))

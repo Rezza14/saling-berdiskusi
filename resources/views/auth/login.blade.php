@@ -1,5 +1,6 @@
 <x-base title="Discussion Forum">
     <x-auth title="Login">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
         <div class="container">
             <div class="card overflow-hidden">
                 <div class="bg-login text-center">
@@ -18,7 +19,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="username"
+                                <input type="text" class="form-control" id="username" placeholder="Enter username or email"
                                     name="username">
                             </div>
 
@@ -49,7 +50,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </x-auth>
 </x-base>

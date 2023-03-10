@@ -54,7 +54,7 @@ class ProfileService extends BaseService
         DB::beginTransaction();
         try {
             $user = auth()->user();
-            if (! Hash::check($request->old_password, $user->password)) {
+            if (!Hash::check($request->old_password, $user->password)) {
                 return $this->response(false, 'Wrong old password', null, Response::HTTP_BAD_REQUEST);
             }
 

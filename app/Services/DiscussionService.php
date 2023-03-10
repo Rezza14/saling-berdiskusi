@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Discussion\StoreDiscussionRequest;
-use App\Http\Requests\Discussion\UpdateDiscussionRequest;
-use App\Models\Discussion;
 use Exception;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\Discussion\StoreDiscussionRequest;
+use App\Http\Requests\Discussion\UpdateDiscussionRequest;
 
 class DiscussionService extends BaseService
 {
@@ -58,7 +58,9 @@ class DiscussionService extends BaseService
     {
         DB::beginTransaction();
         try {
-            $discussion->update($request->validated());
+            $data = $request->validated();
+            $data['updated_at'] = now();
+            $discussion->update($data);
             DB::commit();
 
             return $this->response(true, 'Successfully changed discussion data', $discussion);

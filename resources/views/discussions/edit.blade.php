@@ -1,6 +1,6 @@
 <x-base title="Data Discussion">
     @trixassets
-    <form action="{{ route('discussions.update', $discussion->slug) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('discussions.update', $discussion->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
