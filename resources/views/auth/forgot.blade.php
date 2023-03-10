@@ -1,4 +1,4 @@
-<x-base title="Discussion Forum">
+<x-base title="Forgot Password">
     <x-auth title="Forgot Password">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
         <div class="container">

@@ -1,4 +1,4 @@
-<x-base title="Discussion Forum">
+<x-base title="Reset Password">
     <x-auth title="Reset Password">
         <div class="container">
             <div class="card overflow-hidden">

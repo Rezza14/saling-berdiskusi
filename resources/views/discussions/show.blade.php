@@ -23,7 +23,9 @@
                                             button-type="button"
                                             button-class="btn-sm btn-warning float-end waves-effect waves-light border-0 mx-1"
                                             icon-class="bx bx-edit-alt font-size-16 align-middle mr-1" />
-                                    @elseif (Auth::user()->getRoleNames()->implode('') == 'administrator')
+                                        {{-- todo : fix get role names if user is null --}}
+                                    @elseif (Auth::user() != null &&
+                                            Auth::user()->getRoleNames()->implode('') == 'administrator')
                                         <form action="{{ route('discussions.destroy', $discussion->id) }}"
                                             method="post" class="d-inline">
                                             @csrf
@@ -39,7 +41,7 @@
                                             style="width: 30px"
                                             src="{{ $discussion->user->image ? asset('storage/' . $discussion->user->image) : 'https://avatars.dicebear.com/api/initials/' . $discussion->user->name . '.png?background=blue' }}"
                                             alt="">
-                                        <span class="text-muted">{{ $discussion->user?->name }} |
+                                        <span class="text-muted">{{ $discussion->user?->name ?? 'User Not found' }} |
                                             @if ($discussion->user?->Admin())
                                                 <span class="badge badge-soft-danger fs-6">Administrator</span>
                                             @elseif ($discussion->user?->Teacher())
@@ -49,8 +51,8 @@
                                             @endif |
                                             {{ $discussion->created_at->diffForHumans() }}
                                             @if ($discussion->updated_at != $discussion->created_at)
-                                            <i class="text-muted">* Edited</i>
-                                        @endif
+                                                <i class="text-muted">* Edited</i>
+                                            @endif
                                         </span>
                                     </p>
                                 </div>
@@ -79,9 +81,9 @@
                                             <li class="list-group-item">
                                                 <p><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
                                                         style="width: 30px"
-                                                        src="{{ $comment->user->image ? asset('storage/' . $comment->user->image) : 'https://avatars.dicebear.com/api/initials/' . $comment->user->name . '.png?background=blue' }}"
+                                                        src="{{ $comment->user?->image ? asset('storage/' . $comment->user?->image) : 'https://avatars.dicebear.com/api/initials/' . $comment->user?->name . '.png?background=blue' }}"
                                                         alt="">
-                                                    <span class="text-muted">{{ $comment->user?->name }} |
+                                                    <span class="text-muted">{{ $comment->user?->name ?? 'User Not found' }} |
                                                         @if ($comment->user?->Admin())
                                                             <span
                                                                 class="badge badge-soft-danger fs-6">Administrator</span>
@@ -113,7 +115,8 @@
                                                             button-type="button"
                                                             button-class="btn-sm btn-warning waves-effect waves-light border-0"
                                                             icon-class="bx bx-edit-alt font-size-12 align-middle mr-1" />
-                                                    @elseif (Auth::user()->getRoleNames()->implode('') == 'administrator')
+                                                    @elseif (Auth::user() != null &&
+                                                            Auth::user()->getRoleNames()->implode('') == 'administrator')
                                                         <form action="{{ route('comments.destroy', $comment->id) }}"
                                                             method="post" class="d-inline">
                                                             @csrf

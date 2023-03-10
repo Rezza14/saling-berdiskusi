@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Models\Discussion;
 use App\Services\DiscussionService;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Discussion\StoreDiscussionRequest;
 use App\Http\Requests\Discussion\UpdateDiscussionRequest;
 use Auth;
+use Exception;
 
 class DiscussionController extends Controller
 {
@@ -34,7 +34,7 @@ class DiscussionController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetalert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -45,7 +45,7 @@ class DiscussionController extends Controller
         $route = $this->route;
         $view = $this->view;
 
-        if(Auth::user()->id != $discussion->user_id) {
+        if (Auth::user()->id != $discussion->user_id) {
             abort(403);
         }
         return view($view . 'edit', compact('view', 'discussion', 'route'));
@@ -68,7 +68,7 @@ class DiscussionController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetalert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -85,11 +85,11 @@ class DiscussionController extends Controller
             }
             toastr($response->message);
 
-            return back(302, [], route('index'));
+            return redirect()->route('index');
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetalert(__('whoops'));
+            sweetalert(__('whoops'), 'error');
 
             return to_route('index');
         }

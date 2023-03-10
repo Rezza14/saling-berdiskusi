@@ -24,7 +24,7 @@ class UserController extends Controller
             $view = $this->view;
             $response = $userService->index($request);
             if (!$response->success) {
-                sweetAlert($response->message, 'error');
+                sweetalert($response->message, 'error');
 
                 return to_route('index')->withErrors($response->message);
             }
@@ -34,7 +34,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetAlert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return to_route('index')->withErrors(__('whoops'));
         }
@@ -54,7 +54,7 @@ class UserController extends Controller
             $route = $this->route;
             $response = $userService->store($request);
             if (!$response->success) {
-                sweetAlert($response->message, 'error');
+                sweetalert($response->message, 'error');
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -65,7 +65,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetAlert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -93,7 +93,7 @@ class UserController extends Controller
             $route = $this->route;
             $response = $userService->update($request, $user);
             if (!$response->success) {
-                sweetAlert($response->message, 'error');
+                sweetalert($response->message, 'error');
 
                 return back()->withInput()->withErrors($response->message);
             }
@@ -104,7 +104,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            sweetAlert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return back()->withInput()->withErrors(__('whoops'));
         }
@@ -115,7 +115,7 @@ class UserController extends Controller
         try {
             $response = $userService->delete($user);
             if (!$response->success) {
-                SweetAlert($response->message, 'error');
+                sweetalert($response->message, 'error');
 
                 return to_route($this->route . 'index');
             }
@@ -126,7 +126,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             Log::emergency($e->getMessage());
 
-            SweetAlert(__('whoops'), 'error');
+            sweetalert(__('whoops'), 'error');
 
             return to_route('index');
         }
