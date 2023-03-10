@@ -13,9 +13,6 @@ use Str;
 
 class ForgotPasswordService extends BaseService
 {
-    /**
-     * Send the password reset link to the user.
-     */
     public function sendResetLinkEmail(ForgotPasswordRequest $request): object
     {
         $status = Password::sendResetLink(
@@ -29,13 +26,6 @@ class ForgotPasswordService extends BaseService
             ], Response::HTTP_UNAUTHORIZED);
     }
 
-    /**
-     * Reset User Password.
-     *
-     * @param  Request  $request
-     * @param  string  $token
-     * @return object
-     */
     public function resetPassword(Request $request, string $token): object
     {
         $rules = [

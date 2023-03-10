@@ -1,5 +1,6 @@
 <x-base title="Discussion Forum">
     <x-auth title="Login">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
         <div class="container">
             <div class="card overflow-hidden">
                 <div class="bg-login text-center">
@@ -8,7 +9,7 @@
                         <h5 class="text-white font-size-20">Login</h5>
                         <p class="text-white-50 mb-0">Login to continue</p>
                         <a href="{{ route('login') }}" class="logo logo-admin mt-4">
-                            <img src="{{ asset('assets/images/LOGO TOK@2.png') }}" alt="" height="50">
+                            <img src="{{ asset('assets/images/logoS.png') }}" alt="" height="50">
                         </a>
                     </div>
                 </div>
@@ -18,7 +19,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="username"
+                                <input type="text" class="form-control" id="username" placeholder="Enter username or email"
                                     name="username">
                             </div>
 
@@ -49,7 +50,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </x-auth>
 </x-base>

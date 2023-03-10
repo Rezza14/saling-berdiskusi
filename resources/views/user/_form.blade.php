@@ -16,7 +16,7 @@
     </div>
 @endif
 @if (!request()->routeIs($route . 'show'))
-    <x-input identifier="image" label-text="Image" type="file" :value="old('image', $user ?? null)" :required="request()->routeIs($route . 'create')" />
+    <x-input identifier="image" label-text="Image" type="file" :value="old('image', $user ?? null)" />
 @endif
 @if (!request()->routeIs($route . 'show'))
     <x-select :list="\App\Enums\RoleEnum::array()" :selectedId="!empty($user)

@@ -70,10 +70,10 @@
                 <div class="navbar-brand-box">
                     <a href="{{ route('index') }}" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('assets/images/Logo SKL.png') }}" alt="" height="35">
+                            <img src="{{ asset('assets/images/Asset2.png') }}" alt="" height="50">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('assets/images/Logo SKL.png') }}" alt="" height="38">
+                            <img src="{{ asset('assets/images/Asset2.png') }}" alt="" height="50">
                         </span>
                     </a>
                 </div>

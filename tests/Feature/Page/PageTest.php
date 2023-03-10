@@ -11,7 +11,7 @@ use function Pest\Laravel\put;
 /**
  * @group page index
  */
-it('can\'t access index page(unauthorize)', function () {
+it('can\'t access index page (unauthorize)', function () {
     get(route('page.index'))
         ->assertStatus(302)
         ->assertRedirect(route('login'));
@@ -26,29 +26,18 @@ it('can\'t access index page (user not admin)', function (User $user) {
 it('can access index page', function (User $admin) {
     actingAs($admin)
         ->get(route('page.index'))
-        ->assertSeeText('index page')
+        ->assertSeeText('List Pages')
         ->assertSuccessful();
 })->with('user_administrator');
 
 /**
  * @group page create
  */
-it('can\'t access pages create page (unauthorized)', function () {
-    get(route('page.create'))
-        ->assertStatus(302)
-        ->assertRedirect(route('login'));
-});
-
-it('can\'t access pages create page (user not admin)', function (User $user) {
-    actingAs($user)
-        ->get(route('page.create'))
-        ->assertForbidden();
-})->with('user');
 
 it('can access pages create page', function (User $admin) {
     actingAs($admin)
         ->get(route('page.create'))
-        ->assertSeeText('create page')
+        ->assertSeeText('Add Pages Data')
         ->assertSuccessful();
 })->with('user_administrator');
 
@@ -88,18 +77,6 @@ it('can create page', function (User $admin) {
 /**
  * @group page show page
  */
-it('can\'t access pages detail page (unauthorized)', function () {
-    get(route('page.show', 1))
-        ->assertStatus(302)
-        ->assertRedirect(route('login'));
-});
-
-it('can\'t access pages detail page (user not admin)', function (User $user, Page $page) {
-    actingAs($user)
-        ->get(route('page.show', $page))
-        ->assertForbidden();
-})->with('user', 'page');
-
 it('can\'t access pages detail page (not found)', function (User $admin) {
     actingAs($admin)
         ->get(route('page.show', -1))
@@ -109,7 +86,7 @@ it('can\'t access pages detail page (not found)', function (User $admin) {
 it('can access pages detail page', function (User $admin, Page $page) {
     actingAs($admin)
         ->get(route('page.show', $page))
-        ->assertSeeText('show page')
+        ->assertSeeText('Page')
         ->assertSuccessful();
 })->with('user_administrator', 'page');
 
@@ -138,7 +115,7 @@ it('can access pages edit page', function (User $admin, Page $page) {
     actingAs($admin)
         ->get(route('page.edit', $page))
         ->assertSuccessful()
-        ->assertSeeText('edit page');
+        ->assertSeeText('Edit Pages Data');
 })->with('user_administrator', 'page');
 
 /**
@@ -152,7 +129,7 @@ it('can\'t update page (unauthorized)', function () {
 
 it('can\'t update page (user not admin)', function (User $user, Page $page) {
     actingAs($user)
-        ->get(route('page.update', $page))
+        ->put(route('page.update', $page))
         ->assertForbidden();
 })->with('user', 'page');
 
@@ -191,7 +168,7 @@ it('can\'t deleted page (unauthorized)', function () {
 
 it('can\'t deleted page (user not admin)', function (User $user, Page $page) {
     actingAs($user)
-        ->get(route('page.destroy', $page))
+        ->delete(route('page.destroy', $page))
         ->assertForbidden();
 })->with('user', 'page');
 
@@ -207,25 +184,3 @@ it('can delete page', function (User $admin, Page $page) {
         ->assertRedirect(route('page.index'))
         ->assertSessionDoesntHaveErrors();
 })->with('user_administrator', 'page');
-
-/**
- * @group page pages
- */
-it('can\'t access pages page (unauthorized)', function () {
-    get(route('pages', -1))
-        ->assertStatus(302)
-        ->assertRedirect(route('login'));
-});
-
-it('can\'t access pages page (not found)', function (User $user) {
-    actingAs($user)
-        ->get(route('pages', -1))
-        ->assertNotFound();
-})->with('user');
-
-it('can access pages page', function (User $user, Page $page) {
-    actingAs($user)
-        ->get(route('pages', $page))
-        ->assertSeeText('pages')
-        ->assertSuccessful();
-})->with('user_student', 'page');

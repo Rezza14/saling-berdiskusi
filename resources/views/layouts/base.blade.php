@@ -11,8 +11,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ? "$title - " : null }}</title>
-    <link rel="icon" href="{{ asset('assets/images/LOGO TOK@2.png') }}">
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="{{ asset('assets/images/logoS.png') }}">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <style>
@@ -40,7 +40,7 @@
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        {{-- {{ Breadcrumbs::render() }} --}}
+                                        {{ Breadcrumbs::render() }}
                                     </ol>
                                 </div>
                             </div>

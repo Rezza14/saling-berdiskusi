@@ -10,8 +10,7 @@
                             Make sure you take note of the password,<br> so that you don't lose it back.
                         </p>
                         <a href="{{ route('login') }}" class="logo logo-admin mt-4">
-                            <img src="{{ asset('assets/dashboard/images/favicon-astra.png') }}" alt=""
-                                height="50">
+                            <img src="{{ asset('assets/images/logoS.png') }}" alt="" height="50">
                         </a>
                     </div>
                 </div>
@@ -54,8 +53,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
         </div>
     </x-auth>
 </x-base>

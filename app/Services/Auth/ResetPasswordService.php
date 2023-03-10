@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResetPasswordService extends BaseService
 {
-    /**
-     * Reset the password for the given token.
-     */
     public function reset(ResetPasswordRequest $request): object
     {
         $status = Password::reset(
@@ -31,7 +28,7 @@ class ResetPasswordService extends BaseService
         );
 
         return $status == Password::PASSWORD_RESET
-            ? $this->response(true, __('passwords.reset'), __($status))
+            ? $this->response(true, __('Password has been reset'), __($status))
             : $this->response(false, __($status), [
                 'email' => [__($status)],
             ], Response::HTTP_UNAUTHORIZED);
