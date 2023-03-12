@@ -46,8 +46,9 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $route = $this->route;
+        $user = Auth::user();
 
-        if (Auth::user()->id != $comment->user_id) {
+        if ($user->id != $comment->user_id) {
             abort(403);
         }
         $data['comment'] = $request->comment;
@@ -59,12 +60,17 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $route = $this->route;
+        $user = Auth::user();
 
-        if (Auth::user()->id == $comment->user_id) {
+        if ($user->id == $comment->user_id) {
             $comment->delete();
             $discussion_id = $comment->discussion_id;
             return redirect()->route($route . 'show', $discussion_id);
-        } elseif (Auth::user()->getRoleNames()->implode('') == 'administrator') {
+        } elseif ($user->Admin()) {
+            $comment->delete();
+            $discussion_id = $comment->discussion_id;
+            return redirect()->route($route . 'show', $discussion_id);
+        } elseif ($user->id == $comment->discussion->user_id) {
             $comment->delete();
             $discussion_id = $comment->discussion_id;
             return redirect()->route($route . 'show', $discussion_id);

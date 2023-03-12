@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth', 'role:' . implode('|', [RoleEnum::ADMINIS
 
     Route::get('pages/create', 'DashboardController@pageCreate')->name('page.create')->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
 
-    Route::resource('discussions', 'DiscussionController')->except(['index', 'show', 'create'])->middleware(['role:' . implode('|', [RoleEnum::ADMINISTRATOR->value])]);
+    Route::resource('discussions', 'DiscussionController')->except(['index', 'show', 'create']);
 
     Route::resource('comments', 'CommentController')->only(['destroy']);
 
