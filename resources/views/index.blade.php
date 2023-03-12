@@ -21,8 +21,8 @@
                                                 <a href="{{ route('discussions.show', $discussions->id) }}"></a>
                                                 <h2 class="card-title"><a
                                                         href="{{ route('discussions.show', $discussions->id) }}">
-                                                        {{ $discussions->title }}</a></h2>
-                                                <p class="card-text"> {!! str(strip_tags($discussions->trixRender('content')))->limit(20) !!}</p>
+                                                        {!! str(strip_tags($discussions->title))->limit(30) !!}</a></h2>
+                                                <p class="card-text"> {!! str(strip_tags($discussions->trixRender('body')))->limit(30) !!}</p>
                                                 <button class="btn btn-warning btn-sm">{{ $discussions->tags }}</button>
                                             </div>
                                             <div class="card-footer text-muted" style="18rem;">

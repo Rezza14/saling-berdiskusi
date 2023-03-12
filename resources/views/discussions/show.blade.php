@@ -23,9 +23,7 @@
                                             button-type="button"
                                             button-class="btn-sm btn-warning float-end waves-effect waves-light border-0 mx-1"
                                             icon-class="bx bx-edit-alt font-size-16 align-middle mr-1" />
-                                        {{-- todo : fix get role names if user is null --}}
-                                    @elseif (Auth::user() != null &&
-                                            Auth::user()->getRoleNames()->implode('') == 'administrator')
+                                    @elseif ($user != null && $user->Admin())
                                         <form action="{{ route('discussions.destroy', $discussion->id) }}"
                                             method="post" class="d-inline">
                                             @csrf
@@ -39,7 +37,7 @@
                                     @endif
                                     <p><img class="img-fluid img-profile rounded-circle mx-auto mb-2"
                                             style="width: 30px"
-                                            src="{{ $discussion->user->image ? asset('storage/' . $discussion->user->image) : 'https://avatars.dicebear.com/api/initials/' . $discussion->user->name . '.png?background=blue' }}"
+                                            src="{{ $discussion->user?->image ? asset('storage/' . $discussion->user?->image) : 'https://avatars.dicebear.com/api/initials/' . $discussion->user?->name . '.png?background=blue' }}"
                                             alt="">
                                         <span class="text-muted">{{ $discussion->user?->name ?? 'User Not found' }} |
                                             @if ($discussion->user?->Admin())
@@ -51,7 +49,7 @@
                                             @endif |
                                             {{ $discussion->created_at->diffForHumans() }}
                                             @if ($discussion->updated_at != $discussion->created_at)
-                                                <i class="text-muted">* Edited</i>
+                                                <span class="text-muted">(edited)</span>
                                             @endif
                                         </span>
                                     </p>
@@ -83,7 +81,9 @@
                                                         style="width: 30px"
                                                         src="{{ $comment->user?->image ? asset('storage/' . $comment->user?->image) : 'https://avatars.dicebear.com/api/initials/' . $comment->user?->name . '.png?background=blue' }}"
                                                         alt="">
-                                                    <span class="text-muted">{{ $comment->user?->name ?? 'User Not found' }} |
+                                                    <span
+                                                        class="text-muted">{{ $comment->user?->name ?? 'User Not found' }}
+                                                        |
                                                         @if ($comment->user?->Admin())
                                                             <span
                                                                 class="badge badge-soft-danger fs-6">Administrator</span>
@@ -94,7 +94,7 @@
                                                         @endif |
                                                         {{ $comment->created_at->diffForHumans() }}
                                                         @if ($comment->updated_at != $comment->created_at)
-                                                            <i class="text-muted">* Edited</i>
+                                                            <span class="text-muted">(edited)</span>
                                                         @endif
                                                     </span>
                                                     <span class="d-block">
@@ -115,8 +115,18 @@
                                                             button-type="button"
                                                             button-class="btn-sm btn-warning waves-effect waves-light border-0"
                                                             icon-class="bx bx-edit-alt font-size-12 align-middle mr-1" />
-                                                    @elseif (Auth::user() != null &&
-                                                            Auth::user()->getRoleNames()->implode('') == 'administrator')
+                                                    @elseif ($user != null && $user->Admin())
+                                                        <form action="{{ route('comments.destroy', $comment->id) }}"
+                                                            method="post" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn-sm btn-danger waves-effect waves-light border-0 btn-delete"
+                                                                onclick="return confirm('Delete comment permanently?')"><i
+                                                                    class="bx bx-trash font-size-12 align-middle mr-1"></i>
+                                                            </button>
+                                                        </form>
+                                                    @elseif ($user != null && $user->id == $discussion->user_id)
                                                         <form action="{{ route('comments.destroy', $comment->id) }}"
                                                             method="post" class="d-inline">
                                                             @csrf
